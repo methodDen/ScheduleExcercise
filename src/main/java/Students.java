@@ -16,6 +16,14 @@ public class Students {
     @DatabaseField(columnName = "GroupId")
     private long groupId;
 
+    public Students(long studentId, String firstName, String lastName, String mobilePhone, long groupId) {
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobilePhone = mobilePhone;
+        this.groupId = groupId;
+    }
+
     public long getStudentId() {
         return studentId;
     }
