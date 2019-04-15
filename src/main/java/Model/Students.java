@@ -1,9 +1,12 @@
+package Model;
+
+import Utils.Role;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Objects;
 
-@DatabaseTable (tableName = "Students")
+@DatabaseTable (tableName = "Model.Students")
 public class Students {
     @DatabaseField(columnName = "StudentId", generatedId = true, canBeNull = false)
     private long studentId;
@@ -15,6 +18,12 @@ public class Students {
     private String mobilePhone;
     @DatabaseField(columnName = "GroupId")
     private long groupId;
+    @DatabaseField(columnName = "Login")
+    private String login;
+    @DatabaseField(columnName = "PasswordOfStudent")
+    private String passwordOfStudent;
+    @DatabaseField(columnName = "RoleOfUser")
+    private Role role;
 
     public Students(long studentId, String firstName, String lastName, String mobilePhone, long groupId) {
         this.studentId = studentId;
@@ -22,6 +31,34 @@ public class Students {
         this.lastName = lastName;
         this.mobilePhone = mobilePhone;
         this.groupId = groupId;
+    }
+
+    public Students(long studentId, String firstName, String lastName, String mobilePhone, long groupId, String login, String passwordOfStudent, Role role) {
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobilePhone = mobilePhone;
+        this.groupId = groupId;
+        this.login = login;
+        this.passwordOfStudent = passwordOfStudent;
+        this.role = role;
+    }
+
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPasswordOfStudent() {
+        return passwordOfStudent;
+    }
+
+    public void setPasswordOfStudent(String passwordOfStudent) {
+        this.passwordOfStudent = passwordOfStudent;
     }
 
     public long getStudentId() {

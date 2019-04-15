@@ -1,9 +1,11 @@
+package Model;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Objects;
 
-@DatabaseTable (tableName = "Day")
+@DatabaseTable (tableName = "Model.Day")
 public class Day {
     @DatabaseField(columnName = "DayId", generatedId = true)
     private long dayId;

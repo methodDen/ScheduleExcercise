@@ -1,14 +1,17 @@
+package Utils;
+
+import Model.Day;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-
+import Model.*;
 import java.sql.SQLException;
 
 public class Connection {
     private static ConnectionSource source;
     static {
         try {
-            source = new JdbcConnectionSource("jdbc:sqlite:C:\\SQL\\Schedule.db");
+            source = new JdbcConnectionSource("jdbc:sqlite:C:\\SQL\\Model.Schedule.db");
             TableUtils.createTableIfNotExists(source, Day.class);
             TableUtils.createTableIfNotExists(source, Schedule.class);
             TableUtils.createTableIfNotExists(source, Groups.class);
@@ -22,4 +25,5 @@ public class Connection {
     public static ConnectionSource getSource() {
         return source;
     }
+
 }

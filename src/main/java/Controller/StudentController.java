@@ -1,3 +1,6 @@
+package Controller;
+
+import Utils.Connection;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -7,7 +10,11 @@ import io.javalin.Context;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import Model.*;
+import Utils.*;
+import Serializers.*;
+import UserSerializer.*;
+import Deserializers.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
