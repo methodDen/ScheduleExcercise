@@ -1,5 +1,5 @@
 package Utils;
 
-public enum Role {
+public enum Role implements io.javalin.security.Role {
     ADMIN, USER, ANONYMOUS;
 }

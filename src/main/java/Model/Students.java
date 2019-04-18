@@ -25,6 +25,14 @@ public class Students {
     @DatabaseField(columnName = "RoleOfUser")
     private Role role;
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public Students(long studentId, String firstName, String lastName, String mobilePhone, long groupId) {
         this.studentId = studentId;
         this.firstName = firstName;
