@@ -1,16 +1,16 @@
 package Controller;
 
-import Model.Schedule;
+import Model.*;
 import Utils.Connection;
 import Utils.Constants;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.spring.DaoFactory;
 import io.javalin.Context;
 import io.javalin.apibuilder.CrudHandler;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.sql.SQLException;
 
 public class ScheduleController {
@@ -20,7 +20,7 @@ public class ScheduleController {
     public ScheduleController() {
         logger = LoggerFactory.getLogger(this.getClass());
         try {
-            scheduleDao = DaoFactory.createDao(Connection.getSource(), Schedule.class);
+            scheduleDao = DaoManager.createDao(Connection.getSource(), Schedule.class);
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("Error occured creating Dao");
@@ -29,7 +29,7 @@ public class ScheduleController {
     }
 
     public void create(@NotNull Context context) {
-        Schedule schedule = context.bodyAsClass(Schedule.class);
+        Schedule schedule = context.bodyAsClass(Schedule.class); // читать Exceptions внимательнее чтобы избежать Unrecognized Field Exception -> писать названия полей в ARC так, как написано в Exception'e
         try {
             scheduleDao.create(schedule);
             context.status(Constants.CREATED_201);

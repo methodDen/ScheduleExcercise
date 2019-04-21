@@ -24,14 +24,14 @@ public class StudentDeserializer extends StdDeserializer<Students> {
     @Override
     public Students deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
         JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
-        long studentId = Long.valueOf(jsonNode.get("StudentId").asText());
+        long studentId = Long.valueOf(jsonNode.get("StudentId").asText()); // записывать поле "StudentId" в ARC тоже, даже если в Model записан AutoIncrement
         String firstName = jsonNode.get("FirstName").asText();
         String lastName = jsonNode.get("LastName").asText();
         String mobilePhone = jsonNode.get("MobilePhone").asText();
         long groupId = Long.valueOf(jsonNode.get("GroupId").asText());
         String login = jsonNode.get("Login").asText();
         String passwordOfStudent = jsonNode.get("PasswordOfStudent").asText();
-        String role = jsonNode.get("RoleOfUse").asText();
+        String role = jsonNode.get("RoleOfUser").asText();
         return new Students(studentId, firstName, lastName, mobilePhone, groupId, login, BCrypt.hashpw(passwordOfStudent, BCrypt.gensalt()), Role.valueOf(role));
     }
 }

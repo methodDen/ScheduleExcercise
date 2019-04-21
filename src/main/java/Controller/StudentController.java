@@ -50,8 +50,8 @@ public class StudentController {
     public void create(@NotNull Context context) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
-        mapper.registerModule(module);
         module.addDeserializer(Students.class, new StudentDeserializer());
+        mapper.registerModule(module);
         String json = context.body();
         Students student = mapper.readValue(json, Students.class);
         try {

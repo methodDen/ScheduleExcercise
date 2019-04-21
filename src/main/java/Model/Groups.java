@@ -5,11 +5,11 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Objects;
 
-@DatabaseTable(tableName = "Model.Groups")
+@DatabaseTable(tableName = "Groups")
 public class Groups {
-    @DatabaseField(columnName = "GroupId", canBeNull = false, generatedId = true)
+    @DatabaseField(columnName = "GroupId")
     private long groupId;
-    @DatabaseField(columnName = "GroupName", canBeNull = false)
+    @DatabaseField(columnName = "GroupName")
     private String groupName;
 
     public long getGroupId() {

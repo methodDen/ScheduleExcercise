@@ -5,9 +5,9 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Objects;
 
-@DatabaseTable(tableName = "Model.Schedule")
+@DatabaseTable(tableName = "Schedule")
 public class Schedule {
-    @DatabaseField(columnName = "ScheduleId", generatedId = true)
+    @DatabaseField(columnName = "ScheduleId")
     private long scheduleId;
     @DatabaseField(columnName = "GroupId")
     private long groupId;

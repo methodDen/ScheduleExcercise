@@ -6,9 +6,9 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Objects;
 
-@DatabaseTable (tableName = "Model.Students")
+@DatabaseTable (tableName = "Students")
 public class Students {
-    @DatabaseField(columnName = "StudentId", generatedId = true, canBeNull = false)
+    @DatabaseField(columnName = "StudentId")
     private long studentId;
     @DatabaseField(columnName = "FirstName")
     private String firstName;
@@ -129,4 +129,17 @@ public class Students {
     public Students() {
     }
 
+    @Override
+    public String toString() {
+        return "Students{" +
+                "studentId=" + studentId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", groupId=" + groupId +
+                ", login='" + login + '\'' +
+                ", passwordOfStudent='" + passwordOfStudent + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

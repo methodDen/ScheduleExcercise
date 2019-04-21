@@ -26,6 +26,7 @@ public class Main {
             }
         }));
 
+        app.start();
         app.routes(()-> {
             path("students", ()-> {
                 get("/secured", ctx -> new StudentController().getAll(ctx), roles(Role.ADMIN));
@@ -45,6 +46,6 @@ public class Main {
                 post(ctx -> new GroupsController().create(ctx), roles(Role.ADMIN));
             });
         });
-        app.start();
+
     }
 }

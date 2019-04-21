@@ -5,9 +5,9 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Objects;
 
-@DatabaseTable (tableName = "Model.Day")
+@DatabaseTable (tableName = "Day")
 public class Day {
-    @DatabaseField(columnName = "DayId", generatedId = true)
+    @DatabaseField(columnName = "DayId")
     private long dayId;
     @DatabaseField(columnName = "WeekDayName")
     private String weekDayName;
