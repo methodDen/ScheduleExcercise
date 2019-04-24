@@ -17,6 +17,7 @@ import java.util.List;
 
 public class Connection {
     private static ConnectionSource source;
+
     static {
         try {
             source = new JdbcConnectionSource("jdbc:sqlite:C:\\SQL\\Sch.db");
@@ -29,12 +30,14 @@ public class Connection {
             System.out.println("Error occured creating table");
         }
     }
-    public static Role getUserRole (Context context) throws SQLException {
+
+    public static Role getUserRole(Context context) throws SQLException {
         if (context.header("Authorization") == null) {
-            return Role.ANONYMOUS;}
+            return Role.ANONYMOUS;
+        }
         String login = context.basicAuthCredentials().getUsername();
         String password = context.basicAuthCredentials().getPassword();
-        Dao <Students, Long> daoForStudents = DaoFactory.createDao(Connection.getSource(), Students.class);
+        Dao<Students, Long> daoForStudents = DaoFactory.createDao(Connection.getSource(), Students.class);
         List<Students> whoGotLogin = new ArrayList<>();
         whoGotLogin = daoForStudents.queryBuilder().where().eq("Login", login).query();
         if (whoGotLogin.size() == 1) {
@@ -46,6 +49,32 @@ public class Connection {
         return Role.ANONYMOUS;
     }
 
+    public static boolean isTimeAvailable(Context context) throws SQLException {
+        Day day = context.bodyAsClass(Day.class);
+        String dayName = day.getWeekDayName(); // using variable for query
+        String startingTime = day.getStartingTime(); // using variable for query
+        String endingTime = day.getEndingTime();
+        int officeNum = day.getOfficeNum(); // using variable for query
+        Dao<Day, Long> dayDAO = DaoManager.createDao(Connection.getSource(), Day.class);
+        List<Day> daysWithSameDay = new ArrayList<>();
+        daysWithSameDay = dayDAO.queryBuilder().where().eq("weekDayName", dayName).query(); // переделать отбор: вгачаде - по дням, потом - по времени и по офису
+        List<Day> daysWithSameDayAndTime = new ArrayList<>();
+        for (Day dayq : daysWithSameDay)
+        {
+            if (dayq.getStartingTime().equals(startingTime) && dayq.getEndingTime().equals(endingTime))
+            {
+                daysWithSameDayAndTime.add(dayq);
+            }
+        }
+        for (Day dayy : daysWithSameDayAndTime)
+        {
+            if (dayy.getOfficeNum() == officeNum)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     public static ConnectionSource getSource() {
         return source;
     }

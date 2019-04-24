@@ -34,9 +34,11 @@ public class StudentController {
 
     public void getAll(@NotNull Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+
         SimpleModule module = new SimpleModule();
+        module.addSerializer(Students.class, new StudentSerializer()); // Need to define a serialized class
         mapper.registerModule(module);
-        module.addSerializer(new StudentSerializer());
+
         try {
             context.result(mapper.writeValueAsString(studentDao.queryForAll()));
             context.status(Constants.OK_200);
@@ -68,8 +70,9 @@ public class StudentController {
     public void getAllForUsers(@NotNull Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
+        module.addSerializer(Students.class, new StudentUserSerializer());
         mapper.registerModule(module);
-        module.addSerializer(new StudentUserSerializer());
+
         try {
             context.result(mapper.writeValueAsString(studentDao.queryForAll()));
             context.status(Constants.OK_200);

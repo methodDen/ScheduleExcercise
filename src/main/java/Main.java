@@ -30,7 +30,7 @@ public class Main {
         app.routes(()-> {
             path("students", ()-> {
                 get("/secured", ctx -> new StudentController().getAll(ctx), roles(Role.ADMIN));
-                get("/unsecured", ctx -> new StudentController().getAllForUsers(ctx), roles(Role.ANONYMOUS, Role.USER));
+                get("/unsecured", ctx -> new StudentController().getAllForUsers(ctx), roles(Role.ANONYMOUS, Role.USER, Role.ADMIN));
                 post(ctx-> new StudentController().create(ctx), roles(Role.ANONYMOUS, Role.USER, Role.ADMIN));
             });
             path("schedule", ()-> {
@@ -39,6 +39,7 @@ public class Main {
             });
             path("day", ()-> {
                 get(ctx -> new DayController().getAll(ctx), roles(Role.ADMIN, Role.USER));
+
                 post(ctx -> new DayController().create(ctx), roles(Role.ADMIN));
             });
             path("groups", ()->{
