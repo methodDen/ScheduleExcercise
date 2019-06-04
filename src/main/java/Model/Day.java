@@ -19,7 +19,8 @@ public class Day {
     private String endingTime;
     @DatabaseField(columnName = "GroupName")
     private String groupName;
-
+    @DatabaseField (columnName = "ScheduleId")
+    private long scheduleId;
     public Day() {
     }
 
@@ -72,24 +73,13 @@ public class Day {
     }
 
     @Override
-    public String toString() {
-        return "Day{" +
-                "dayId=" + dayId +
-                ", weekDayName='" + weekDayName + '\'' +
-                ", officeNum=" + officeNum +
-                ", startingTime='" + startingTime + '\'' +
-                ", endingTime='" + endingTime + '\'' +
-                ", groupName='" + groupName + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Day day = (Day) o;
         return dayId == day.dayId &&
                 officeNum == day.officeNum &&
+                scheduleId == day.scheduleId &&
                 Objects.equals(weekDayName, day.weekDayName) &&
                 Objects.equals(startingTime, day.startingTime) &&
                 Objects.equals(endingTime, day.endingTime) &&
@@ -98,6 +88,27 @@ public class Day {
 
     @Override
     public int hashCode() {
-        return Objects.hash(dayId, weekDayName, officeNum, startingTime, endingTime, groupName);
+        return Objects.hash(dayId, weekDayName, officeNum, startingTime, endingTime, groupName, scheduleId);
+    }
+
+    @Override
+    public String toString() {
+        return "Day{" +
+                "dayId=" + dayId +
+                ", weekDayName='" + weekDayName + '\'' +
+                ", officeNum=" + officeNum +
+                ", startingTime='" + startingTime + '\'' +
+                ", endingTime='" + endingTime + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", scheduleId=" + scheduleId +
+                '}';
+    }
+
+    public long getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(long scheduleId) {
+        this.scheduleId = scheduleId;
     }
 }

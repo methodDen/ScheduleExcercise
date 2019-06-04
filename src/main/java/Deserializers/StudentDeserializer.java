@@ -32,6 +32,8 @@ public class StudentDeserializer extends StdDeserializer<Students> {
         String login = jsonNode.get("Login").asText();
         String passwordOfStudent = jsonNode.get("PasswordOfStudent").asText();
         String role = jsonNode.get("RoleOfUser").asText();
-        return new Students(studentId, firstName, lastName, mobilePhone, groupId, login, BCrypt.hashpw(passwordOfStudent, BCrypt.gensalt()), Role.valueOf(role));
+        String schoolName = jsonNode.get("SchoolName").asText();
+        String dateOfBirth = jsonNode.get("DateOfBirth").asText();
+        return new Students(studentId, firstName, lastName, mobilePhone, groupId, login, BCrypt.hashpw(passwordOfStudent, BCrypt.gensalt()), Role.valueOf(role), schoolName, dateOfBirth);
     }
 }

@@ -1,5 +1,6 @@
 package Utils;
 
+import Controller.TimeOfLesson;
 import Model.Day;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
@@ -12,6 +13,7 @@ import io.javalin.Context;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class Connection {
             TableUtils.createTableIfNotExists(source, Schedule.class);
             TableUtils.createTableIfNotExists(source, Groups.class);
             TableUtils.createTableIfNotExists(source, Students.class);
+            TableUtils.createTableIfNotExists(source, Tutors.class);
+            TableUtils.createTableIfNotExists(source, Attendance.class);
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error occured creating table");
@@ -49,7 +53,7 @@ public class Connection {
         return Role.ANONYMOUS;
     }
 
-    public static boolean isTimeAvailable(Context context) throws SQLException {
+    public static boolean isTimeAvailable(Context context) throws SQLException, ParseException {
         Day day = context.bodyAsClass(Day.class);
         String dayName = day.getWeekDayName(); // using variable for query
         String startingTime = day.getStartingTime(); // using variable for query
@@ -58,18 +62,18 @@ public class Connection {
         Dao<Day, Long> dayDAO = DaoManager.createDao(Connection.getSource(), Day.class);
         List<Day> daysWithSameDay = new ArrayList<>();
         daysWithSameDay = dayDAO.queryBuilder().where().eq("weekDayName", dayName).query(); // переделать отбор: вгачаде - по дням, потом - по времени и по офису
-        List<Day> daysWithSameDayAndTime = new ArrayList<>();
+        List<Day> daysWithSameDayAndOffice = new ArrayList<>();
         for (Day dayq : daysWithSameDay)
         {
-            if (dayq.getStartingTime().equals(startingTime) && dayq.getEndingTime().equals(endingTime))
+            if (dayq.getOfficeNum() == officeNum)
             {
-                daysWithSameDayAndTime.add(dayq);
+                daysWithSameDayAndOffice.add(dayq);
             }
         }
-        for (Day dayy : daysWithSameDayAndTime)
+        for (Day dayy : daysWithSameDayAndOffice)
         {
-            if (dayy.getOfficeNum() == officeNum)
-            {
+            boolean a = TimeOfLesson.compareTwoTimelines(dayy.getStartingTime(), dayy.getEndingTime(), startingTime, endingTime);
+            if (!a) {
                 return false;
             }
         }

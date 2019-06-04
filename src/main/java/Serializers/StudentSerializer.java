@@ -28,6 +28,8 @@ public class StudentSerializer extends StdSerializer<Students> {
         jsonGenerator.writeStringField("Login", students.getLogin());
         jsonGenerator.writeStringField("PasswordOfStudent", students.getPasswordOfStudent());
         jsonGenerator.writeStringField("RoleOfUser", String.valueOf(students.getRole()));
+        jsonGenerator.writeStringField("SchoolName", students.getSchoolName());
+        jsonGenerator.writeStringField("DateOfBirth", students.getDateOfBirth());
         jsonGenerator.writeEndObject();
     }
 }

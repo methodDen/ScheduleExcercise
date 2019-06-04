@@ -1,7 +1,5 @@
-import Controller.DayController;
-import Controller.GroupsController;
-import Controller.ScheduleController;
-import Controller.StudentController;
+import Controller.*;
+import Model.Attendance;
 import Utils.Connection;
 import Utils.Constants;
 import Utils.Role;
@@ -11,7 +9,7 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 import static io.javalin.security.SecurityUtil.roles;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Javalin app = Javalin.create().port(7000);
 
         app.accessManager(((handler, ctx, permittedRoles) -> {
@@ -46,7 +44,9 @@ public class Main {
                 get(ctx -> new GroupsController().getAll(ctx), roles(Role.ADMIN, Role.USER));
                 post(ctx -> new GroupsController().create(ctx), roles(Role.ADMIN));
             });
+            path("attendance", ()->{
+                get(ctx -> new AttendanceController().getOne(ctx, )) // How to get attendance of individual
+            });
         });
-
     }
 }

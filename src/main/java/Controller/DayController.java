@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import Model.*;
 import Utils.*;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 public class DayController {
     private Logger logger;
@@ -25,7 +26,7 @@ public class DayController {
         }
     }
 
-    public void create(@NotNull Context context) throws SQLException {
+    public void create(@NotNull Context context) throws SQLException, ParseException {
         Day day = context.bodyAsClass(Day.class);
         boolean isTimeAvailableBool = Connection.isTimeAvailable(context);
         if (isTimeAvailableBool == false)
