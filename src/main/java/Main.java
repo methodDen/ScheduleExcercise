@@ -37,7 +37,6 @@ public class Main {
             });
             path("day", ()-> {
                 get(ctx -> new DayController().getAll(ctx), roles(Role.ADMIN, Role.USER));
-
                 post(ctx -> new DayController().create(ctx), roles(Role.ADMIN));
             });
             path("groups", ()->{
@@ -45,7 +44,14 @@ public class Main {
                 post(ctx -> new GroupsController().create(ctx), roles(Role.ADMIN));
             });
             path("attendance", ()->{
-                get(ctx -> new AttendanceController().getOne(ctx, )) // How to get attendance of individual
+                get("/id:",ctx ->  new AttendanceController().getOne(ctx, ctx.pathParam("id")), roles(Role.USER, Role.ADMIN));
+                get(ctx -> new AttendanceController().getAll(ctx), roles(Role.ADMIN));
+                post(ctx -> new AttendanceController().create(ctx), roles(Role.ADMIN));
+            });
+            path("tutors", ()-> {
+                get("/secured", ctx -> new TutorController().getAll(ctx), roles(Role.ADMIN));
+                get("/unsecured", ctx -> new TutorController().getAllForUsers(ctx), roles(Role.USER));
+                post(ctx -> new TutorController().create(ctx), roles(Role.ADMIN));
             });
         });
     }

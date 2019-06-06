@@ -1,5 +1,6 @@
 package Model;
 
+import Utils.Role;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -17,6 +18,18 @@ public class Tutors {
     private String dateOfBirth; // change and parse on SimpleDateFormat
     @DatabaseField (columnName = "PhoneNumber")
     private String phoneNumber;
+    @DatabaseField (columnName = "RoleOfTutor")
+    private Role roleOfTutor;
+
+
+    public Tutors(long tutorId, String firstName, String lastName, String dateOfBirth, String phoneNumber, Role roleOfTutor) {
+        this.tutorId = tutorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+        this.roleOfTutor = roleOfTutor;
+    }
 
     public long getTutorId() {
         return tutorId;
@@ -67,12 +80,21 @@ public class Tutors {
                 Objects.equals(firstName, tutors.firstName) &&
                 Objects.equals(lastName, tutors.lastName) &&
                 Objects.equals(dateOfBirth, tutors.dateOfBirth) &&
-                Objects.equals(phoneNumber, tutors.phoneNumber);
+                Objects.equals(phoneNumber, tutors.phoneNumber) &&
+                roleOfTutor == tutors.roleOfTutor;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tutorId, firstName, lastName, dateOfBirth, phoneNumber);
+        return Objects.hash(tutorId, firstName, lastName, dateOfBirth, phoneNumber, roleOfTutor);
+    }
+
+    public Role getRoleOfTutor() {
+        return roleOfTutor;
+    }
+
+    public void setRoleOfTutor(Role roleOfTutor) {
+        this.roleOfTutor = roleOfTutor;
     }
 
     public Tutors() {
