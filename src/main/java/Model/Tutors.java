@@ -18,16 +18,51 @@ public class Tutors {
     private String dateOfBirth; // change and parse on SimpleDateFormat
     @DatabaseField (columnName = "PhoneNumber")
     private String phoneNumber;
+    @DatabaseField (columnName = "Login")
+    private String loginOfTutor;
+    @DatabaseField (columnName = "Password")
+    private String passwordOfTutor;
     @DatabaseField (columnName = "RoleOfTutor")
     private Role roleOfTutor;
 
+    public String getLoginOfTutor() {
+        return loginOfTutor;
+    }
 
-    public Tutors(long tutorId, String firstName, String lastName, String dateOfBirth, String phoneNumber, Role roleOfTutor) {
+    public void setLoginOfTutor(String loginOfTutor) {
+        this.loginOfTutor = loginOfTutor;
+    }
+
+    @Override
+    public String toString() {
+        return "Tutors{" +
+                "tutorId=" + tutorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", loginOfTutor='" + loginOfTutor + '\'' +
+                ", passwordOfTutor='" + passwordOfTutor + '\'' +
+                ", roleOfTutor=" + roleOfTutor +
+                '}';
+    }
+
+    public String getPasswordOfTutor() {
+        return passwordOfTutor;
+    }
+
+    public void setPasswordOfTutor(String passwordOfTutor) {
+        this.passwordOfTutor = passwordOfTutor;
+    }
+
+    public Tutors(long tutorId, String firstName, String lastName, String dateOfBirth, String phoneNumber, String loginOfTutor, String passwordOfTutor, Role roleOfTutor) {
         this.tutorId = tutorId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
+        this.loginOfTutor = loginOfTutor;
+        this.passwordOfTutor = passwordOfTutor;
         this.roleOfTutor = roleOfTutor;
     }
 

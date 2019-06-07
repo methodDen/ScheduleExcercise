@@ -25,6 +25,8 @@ public class TutorSerializer extends StdSerializer<Tutors> {
         jsonGenerator.writeStringField("DateOfBirth", tutors.getDateOfBirth());
         jsonGenerator.writeStringField("PhoneNumber", tutors.getPhoneNumber());
         jsonGenerator.writeStringField("RoleOfTutor", String.valueOf(tutors.getRoleOfTutor()));
+        jsonGenerator.writeStringField("Login", tutors.getLoginOfTutor());
+        jsonGenerator.writeStringField("Password", tutors.getPasswordOfTutor());
         jsonGenerator.writeEndObject();
     }
 }

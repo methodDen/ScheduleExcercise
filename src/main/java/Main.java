@@ -44,7 +44,7 @@ public class Main {
                 post(ctx -> new GroupsController().create(ctx), roles(Role.ADMIN));
             });
             path("attendance", ()->{
-                get("/id:",ctx ->  new AttendanceController().getOne(ctx, ctx.pathParam("id")), roles(Role.USER, Role.ADMIN));
+                get("/:id" ,ctx ->  new AttendanceController().getOne(ctx, ctx.pathParam("id")), roles(Role.USER, Role.ADMIN));
                 get(ctx -> new AttendanceController().getAll(ctx), roles(Role.ADMIN));
                 post(ctx -> new AttendanceController().create(ctx), roles(Role.ADMIN));
             });

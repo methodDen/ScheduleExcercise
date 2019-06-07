@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Attendance {
     @DatabaseField (columnName = "AttendanceId")
     private long attendanceId;
-    @DatabaseField (columnName = "StudentId")
+    @DatabaseField (columnName = "StudentId") // Query for Id ->
     private long studentId;
     @DatabaseField (columnName = "DayId")
     private long dayId;
@@ -64,6 +64,17 @@ public class Attendance {
         return Objects.hash(attendanceId, studentId, dayId, attendedOrNot);
     }
 
+    public Attendance() {
+    }
+
+    public Attendance(long attendanceId, long studentId, long dayId, boolean attendedOrNot) {
+
+        this.attendanceId = attendanceId;
+        this.studentId = studentId;
+        this.dayId = dayId;
+        this.attendedOrNot = attendedOrNot;
+    }
+
     @Override
     public String toString() {
         return "Attendance{" +
@@ -72,8 +83,5 @@ public class Attendance {
                 ", dayId=" + dayId +
                 ", attendedOrNot=" + attendedOrNot +
                 '}';
-    }
-
-    public Attendance() {
     }
 }

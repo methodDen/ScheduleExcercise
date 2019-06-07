@@ -41,13 +41,26 @@ public class Connection {
         }
         String login = context.basicAuthCredentials().getUsername();
         String password = context.basicAuthCredentials().getPassword();
+        Dao<Tutors, Long> daoForTutors = DaoFactory.createDao(Connection.getSource(), Tutors.class);
+        List<Tutors> whoGotLoginWithinTutors = new ArrayList<>();
         Dao<Students, Long> daoForStudents = DaoFactory.createDao(Connection.getSource(), Students.class);
-        List<Students> whoGotLogin = new ArrayList<>();
-        whoGotLogin = daoForStudents.queryBuilder().where().eq("Login", login).query();
-        if (whoGotLogin.size() == 1) {
-            Students student = whoGotLogin.get(0);
+        List<Students> whoGotLoginWithinStudents = new ArrayList<>();
+        whoGotLoginWithinTutors = daoForTutors.queryBuilder().where().eq("Login", login).query();
+        whoGotLoginWithinStudents = daoForStudents.queryBuilder().where().eq("Login", login).query();
+        if (whoGotLoginWithinStudents.size() == 1) {
+            Students student = whoGotLoginWithinStudents.get(0);
+            System.out.println(student);
             if (BCrypt.checkpw(password, student.getPasswordOfStudent())) { // В ARC, в авторизации - писать нехэшированный пароль
                 return student.getRole();
+            }
+        }
+
+        if (whoGotLoginWithinTutors.size() == 1)
+        {
+            Tutors tutor = whoGotLoginWithinTutors.get(0);
+            System.out.println(tutor);
+            if (BCrypt.checkpw(password, tutor.getPasswordOfTutor())) {
+                return tutor.getRoleOfTutor();
             }
         }
         return Role.ANONYMOUS;

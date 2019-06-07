@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -31,6 +32,8 @@ public class TutorDeserializer extends StdDeserializer<Tutors> {
         String dateOfBirth = jsonNode.get("DateOfBirth").asText();
         String phoneNumber = jsonNode.get("PhoneNumber").asText();
         String role = jsonNode.get("RoleOfTutor").asText();
-        return new Tutors(tutorId, firstName, lastName, dateOfBirth, phoneNumber, Role.valueOf(role));
+        String passwordOfTutor = jsonNode.get("Password").asText();
+        String loginOfTutor = jsonNode.get("Login").asText();
+        return new Tutors(tutorId, firstName, lastName, dateOfBirth, phoneNumber, loginOfTutor, BCrypt.hashpw(passwordOfTutor, BCrypt.gensalt()), Role.valueOf(role));
     }
 }

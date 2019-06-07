@@ -3,6 +3,7 @@ package Controller;
 import Model.Attendance;
 import Utils.Connection;
 import Utils.Constants;
+import java.sql.*;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.spring.DaoFactory;
 import io.javalin.Context;
@@ -11,7 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class AttendanceController {
     public Dao<Attendance, Long> attendanceDao;
@@ -53,9 +56,9 @@ public class AttendanceController {
 
 
     public void getOne(@NotNull Context context, @NotNull String s) {
-        long attendanceId = Long.valueOf(s);
+        long studentId = Long.valueOf(s);
         try {
-            Attendance attendance = attendanceDao.queryForId(attendanceId);
+            Attendance attendance = attendanceDao.queryForId(studentId);
             if (attendance != null)
             {
                 context.json(attendance);
@@ -63,6 +66,7 @@ public class AttendanceController {
             }
             else
             {
+                System.out.println(attendance);
                 context.status(Constants.NOT_FOUND);
             }
         } catch (SQLException e) {
@@ -71,4 +75,5 @@ public class AttendanceController {
             context.status(Constants.INTERNAL_SERVER_ERROR);
         }
     }
+    java.sql.Connection connection = DriverManager.getConnection(Connection.getSource(), "", "");
 }

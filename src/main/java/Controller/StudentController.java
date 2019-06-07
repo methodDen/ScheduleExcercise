@@ -82,4 +82,5 @@ public class StudentController {
             context.status(Constants.INTERNAL_SERVER_ERROR);
         }
     }
+    // create a method for Attendance queries; extend from dao or write SQL statement
 }
